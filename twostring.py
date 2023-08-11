@@ -1,12 +1,12 @@
 # Code for checking if two strings are anagrams
 
-s1 = input ("Enter string1")
-s2 = input ("Enter string2")
+s1 = input ("\tEnter string1\t\n")
+s2 = input ("\tEnter string2\t\n")
 
 def verify( s1, s2):
     if sorted(s1)== sorted(s2):
-        print("strings are anagrams")
+        print("\nstrings are anagrams\n")
     else:
-        print("strings are not anagrams")
+        print("\t\n Yay !!! Strings are not anagrams \n")
 
 verify (s1, s2)
