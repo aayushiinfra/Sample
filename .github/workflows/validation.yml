@@ -1,0 +1,10 @@
+name: Validation Check
+on:
+  repository_dispatch:
+    type: trigger-on-release
+jobs:
+  dependency-check:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Trigger on Release
+        run: echo "This will be trigger on release to check the repo"
