@@ -1,0 +1,13 @@
+name: Fun Check
+on:
+  repository_dispatch:
+    type: trigger-on-release
+  issue_comment:
+    typt: [created]
+jobs:
+  dependency-check:
+    runs-on: ubuntu-20.04
+    if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
+    steps:
+      - name: Trigger on Release
+        run: echo "This will be trigger on release to check the repo"
