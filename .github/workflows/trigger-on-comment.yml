@@ -10,4 +10,4 @@ jobs:
     if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
     steps:
       - name: Trigger on Release
-        run: echo "This will be trigger on release to check the repo"
+        run: echo "This will be trigger on PR comment"
