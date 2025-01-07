@@ -4,6 +4,10 @@ on:
     type: trigger-on-release
   issue_comment:
     typt: [created]
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
 jobs:
   pr_comment:
     runs-on: ubuntu-20.04
