@@ -8,13 +8,14 @@ on:
 permissions:
   contents: read
   issues: read
-  pull-requests: read
+  pull-requests: write
   statuses: write
 
 
 if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
 jobs:
   pr_comment:
+    if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
     runs-on: ubuntu-20.04
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
@@ -38,3 +39,20 @@ jobs:
           sha: ${{ steps.comment-branch.outputs.head_sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
+
+      - name: Add comment to PR
+        uses: actions/github-script@v6
+        if: always()
+        with:
+          script: |
+            const name = '${{ github.workflow   }}';
+            const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+            const success = '${{ job.status }}' === 'success';
+            const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
