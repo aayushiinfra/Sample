@@ -22,7 +22,7 @@ jobs:
         id: sha
         uses: actions/github-script@v4
         with:
-          result-encoding:
+          result-encoding: string
           script: |
             const {owner,repo,number} = context.issue;
             const pr = await.github.pulls.get({
