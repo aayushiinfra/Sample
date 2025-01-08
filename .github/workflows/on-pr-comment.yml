@@ -2,7 +2,7 @@ name: Funny Check
 on:
   repository_dispatch:
     types: trigger-on-release
-  pull_request_review_comment:
+  issue_comment:
     types: [created]
 
 permissions:
@@ -18,9 +18,9 @@ jobs:
     steps:
 
       - uses: actions/checkout@v3
-        # if: success()
-        # with:
-        #   ref: ${{ steps.comment-branch.outputs.head_ref }}
+        if: success()
+        with:
+          ref: ${{ github.event.issue.pull_request.head_ref }}
 
       - name: Check the git branch
         run: |
