@@ -30,6 +30,7 @@ jobs:
         run: |
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
+          echo "This is dev"
         shell: bash
 
       - name: Set latest commit status as ${{ job.status }}
