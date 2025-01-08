@@ -28,6 +28,7 @@ jobs:
         run: |
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
+          This is "dummy"
         shell: bash
 
       - name: Set latest commit status as ${{ job.status }}
