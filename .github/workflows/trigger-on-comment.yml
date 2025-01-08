@@ -27,8 +27,8 @@ jobs:
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
         shell: bash
-            - name: Set latest commit status as ${{ job.status }}
 
+        name: Set latest commit status as ${{ job.status }}
         uses: myrotvorets/set-commit-status-action@master
         if: always()
         with:
