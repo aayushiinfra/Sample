@@ -1,9 +1,9 @@
 name: Fun Check
 on:
   repository_dispatch:
-    type: trigger-on-release
+    types: trigger-on-release
   issue_comment:
-    typt: [created]
+    types: [created]
 permissions:
   contents: read
   issues: read
