@@ -18,13 +18,25 @@ jobs:
     if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
     runs-on: ubuntu-20.04
     steps:
-      - uses: xt0rted/pull-request-comment-branch@v3
-        id: comment-branch
+      # - uses: xt0rted/pull-request-comment-branch@v3
+      #   id: comment-branch
+      - name: Get Github SHA
+        uses: actions/github-script@v4
+        with:
+          result-encoding:
+          script: |
+            const {owner,repo,number} = context.issue;
+            const pr = await.github.pulls.get({
+              owner,
+              repo,
+              pull_number: number,
+            });
+            return pr.data.head.sha
 
       - uses: actions/checkout@v3
         if: success()
         with:
-          ref: ${{ steps.comment-branch.outputs.head_ref }}
+          ref: ${{ steps.sha.outputs.result }}
 
       - name: Check the git branch
         run: |
