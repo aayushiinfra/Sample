@@ -11,10 +11,11 @@ permissions:
   pull-requests: read
   statuses: write
 
+
+if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
 jobs:
   pr_comment:
     runs-on: ubuntu-20.04
-    if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
         id: comment-branch
