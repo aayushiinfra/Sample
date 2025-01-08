@@ -32,19 +32,6 @@ jobs:
             });
             return pr.data.head.sha
 
-      # - name: See context o/p
-      #   uses: actions/github-script@v4
-      #   with:
-      #     result-encoding: string
-      #     script: |
-      #       const { owner,repo,number } = context.issue;
-      #       const pr = await github.pulls.get({
-      #         owner,
-      #         repo,
-      #         pull_number: number,
-      #       });
-      #       return pr.data.comment.id
-
       - uses: actions/checkout@v3
         if: success()
         with:
@@ -69,31 +56,14 @@ jobs:
         if: always()
         with:
           script: |
-            const pr_comments = await github.rest.issues.listComments({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.issue.number,
-            });
             const name = '${{ github.workflow   }}';
             const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
             const success = '${{ job.status }}' === 'success';
             const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
 
-            await Promise.all(
-            pr_comments.data.filter(
-              comment => comment.body?.startsWith("/Fun")
-            ).map(
-              comment => github.rest.issues.deleteComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: body
-              })
-            )
-            )
-            # await github.rest.issues.createComment({
-            #   issue_number: context.issue.number,
-            #   owner: context.repo.owner,
-            #   repo: context.repo.repo,
-            #   body: body
-            # })
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
