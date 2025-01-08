@@ -4,10 +4,12 @@ on:
     types: trigger-on-release
   issue_comment:
     types: [created]
+
 permissions:
   contents: read
   issues: read
   pull-requests: read
+
 jobs:
   pr_comment:
     runs-on: ubuntu-20.04
@@ -21,7 +23,16 @@ jobs:
         with:
           ref: ${{ steps.comment-branch.outputs.head_ref }}
 
-      - run: |
+      - name: Check the git branch
+        run: |
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
         shell: bash
+
+      - name: Set latest commit status as ${{ job.status }}
+        uses: myrotvorets/set-commit-status-action@master
+        if: always()
+        with:
+          sha: ${{ steps.comment-branch.outputs.head_sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
