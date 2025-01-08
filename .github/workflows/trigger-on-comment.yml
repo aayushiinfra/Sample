@@ -2,8 +2,8 @@ name: Fun Check
 on:
   repository_dispatch:
     types: trigger-on-release
-  issue_comment:
-    types: [created]
+  # issue_comment:
+  #   types: [created]
 
 permissions:
   contents: read
@@ -15,7 +15,7 @@ permissions:
 if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
 jobs:
   pr_comment:
-    if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
+    # if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
     runs-on: ubuntu-20.04
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
