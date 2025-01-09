@@ -2,7 +2,7 @@ name: Fun Check
 on:
   repository_dispatch:
     types: trigger-on-release
-  pull_reuest:
+  pull_request:
     branch: [main]
   # issue_comment:
   #   types: [created]
