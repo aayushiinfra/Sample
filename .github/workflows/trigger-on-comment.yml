@@ -32,14 +32,6 @@ jobs:
             });
             return pr.data.head.sha
 
-      # - name: Get comment Id
-      #   id: comment-id
-      #   uses: actions/github-script@v4
-      #   with:
-      #     result-encoding: string
-      #     script: |
-      #       const
-
       - uses: actions/checkout@v3
         if: success()
         with:
@@ -49,7 +41,6 @@ jobs:
         run: |
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
-          ${{github.event.comment.id}}
         shell: bash
 
       - name: Set latest commit status as ${{ job.status }}
@@ -76,3 +67,15 @@ jobs:
               repo: context.repo.repo,
               body: body
             })
+
+      - name: Update comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{github.event.comment.id}}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Hi this is from peter evans
+            ${{ steps.build.outputs.build-log }}
+            '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+            ${{ job.status }}
+          edit-mode: replace
