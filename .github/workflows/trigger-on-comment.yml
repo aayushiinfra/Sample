@@ -51,19 +51,20 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
 
-      - name: Construct comment
-        uses: actions/github-script@v6
-        if: always()
-        id: comment
-        with:
-          result-encoding: string
-          script: |
-            const success = '${{ job.status }}' === 'success';
-            const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
-            return body
+      # - name: Construct comment
+      #   uses: actions/github-script@v4
+      #   if: always()
+      #   id: comment
+      #   with:
+      #     result-encoding: string
+      #     script: |
+      #       const success = '${{ job.status }}' === 'success';
+      #       const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
+      #       return body
 
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v4
+        if: always()
         with:
           comment-id: ${{github.event.comment.id}}
           issue-number: ${{ github.event.pull_request.number }}
