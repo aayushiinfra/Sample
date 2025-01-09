@@ -20,7 +20,7 @@ jobs:
       #   id: comment-branch
       - name: Get Github SHA
         id: sha
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           result-encoding: string
           script: |
@@ -32,6 +32,14 @@ jobs:
             });
             return pr.data.head.sha
 
+      # - name: Get comment Id
+      #   id: comment-id
+      #   uses: actions/github-script@v4
+      #   with:
+      #     result-encoding: string
+      #     script: |
+      #       const 
+
       - uses: actions/checkout@v3
         if: success()
         with:
@@ -41,6 +49,7 @@ jobs:
         run: |
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
+          ${{github.event.comment.id}}
         shell: bash
 
       - name: Set latest commit status as ${{ job.status }}
