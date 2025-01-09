@@ -58,7 +58,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const name ${{ github.workflow   }}
+            const name ${{ github.workflow }};
             const success = '${{ job.status }}' === 'success';
             const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}`;
             return body
@@ -73,5 +73,6 @@ jobs:
             Hi this is from peter evans
             ${{ github.workflow   }}
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            ${{job.status}}
             ${{ steps.comment.outputs.result}}
           edit-mode: replace
