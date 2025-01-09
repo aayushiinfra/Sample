@@ -51,16 +51,17 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
 
-      # - name: Construct comment
-      #   uses: actions/github-script@v4
-      #   if: always()
-      #   id: comment
-      #   with:
-      #     result-encoding: string
-      #     script: |
-      #       const success = '${{ job.status }}' === 'success';
-      #       const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
-      #       return body
+      - name: Construct comment
+        uses: actions/github-script@v7
+        if: always()
+        id: comment
+        with:
+          result-encoding: string
+          script: |
+            const name ${{ github.workflow   }}
+            const success = '${{ job.status }}' === 'success';
+            const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
+            return body
 
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v4
@@ -72,5 +73,5 @@ jobs:
             Hi this is from peter evans
             ${{ github.workflow   }}
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            ${{ steps.comment.outputs.result }}
+            ${{ steps.comment.outputs.result}}
           edit-mode: replace
