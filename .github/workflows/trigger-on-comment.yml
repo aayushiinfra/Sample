@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   pr_comment:
-    if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
+    if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun-check')
     runs-on: ubuntu-20.04
     steps:
       # - uses: xt0rted/pull-request-comment-branch@v3
