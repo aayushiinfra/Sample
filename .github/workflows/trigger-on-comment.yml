@@ -31,6 +31,19 @@ jobs:
               pull_number: number,
             });
             return pr.data.head.sha
+      - name: Get Github SHA
+        id: pr
+        uses: actions/github-script@v4
+        with:
+          result-encoding: string
+          script: |
+            const { owner,repo,number } = context.issue;
+            const pr = await github.pulls.get({
+              owner,
+              repo,
+              pull_number: number,
+            });
+            return pr.data.number
 
       - uses: actions/checkout@v3
         if: success()
@@ -39,11 +52,11 @@ jobs:
 
       - name: Check the git branch
         env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ steps.pr.outputs.result }}
         run: |
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
-          echo ${{ github.event.pull_request.number }}
+          echo  ${{ steps.pr.outputs.result }}
           mkdir something-$PR_NUMBER
           ls
         shell: bash
@@ -73,7 +86,7 @@ jobs:
         if: always()
         with:
           comment-id: ${{github.event.comment.id}}
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{ steps.pr.outputs.result }}
           body: |
             Hi this is from peter evans
             ${{ github.workflow   }}
