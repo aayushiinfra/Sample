@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   pr_comment:
-    if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun')
+    if: github.event.issue.pull_request && contains(github.event.comment.body,'/Fun-check')
     runs-on: ubuntu-20.04
     steps:
       # - uses: xt0rted/pull-request-comment-branch@v3
@@ -38,9 +38,14 @@ jobs:
           ref: ${{ steps.sha.outputs.result }}
 
       - name: Check the git branch
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
+          echo ${{ github.event.pull_request.number }}
+          mkdir something-$PR_NUMBER
+          ls
         shell: bash
 
       - name: Set latest commit status as ${{ job.status }}
