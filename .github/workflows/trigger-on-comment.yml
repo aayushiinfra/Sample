@@ -38,9 +38,14 @@ jobs:
           ref: ${{ steps.sha.outputs.result }}
 
       - name: Check the git branch
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           git rev-parse --abbrev-ref HEAD
           git rev-parse --verify HEAD
+          echo ${{ github.event.pull_request.number }}
+          mkdir something-$PR_NUMBER
+          ls
         shell: bash
 
       - name: Set latest commit status as ${{ job.status }}
