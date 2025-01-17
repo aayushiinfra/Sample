@@ -106,11 +106,11 @@ jobs:
         run: |
           # git checkout -b example-patches
           touch abc.txt
-          # git config --global user.email "something@abc.com"
-          # git config --global user.name "github-actions[bot]"
+          git config --global user.email "something@abc.com"
+          git config --global user.name "github-actions[bot]"
           # git checkout develop
           git add .
-          # git diff-index --quiet HEAD || git commit -m "Testing"
+          git diff-index --quiet HEAD || git commit -m "Testing"
           # git status
         shell: bash
         working-directory: otherrepo/
