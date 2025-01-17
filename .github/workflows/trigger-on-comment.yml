@@ -127,4 +127,4 @@ jobs:
           branch: example-patches
           delete-branch: false
           title: '[Example] Update report'
-          draft: true
+          draft: false
