@@ -105,7 +105,7 @@ jobs:
       - name: Changes for git
         run: |
           git checkout -b example-patches
-          git push -u origin <branch-name>
+          git push -u origin example-patches
           touch abc.txt
           git config --global user.email "something@abc.com"
           git config --global user.name "github-actions[bot]"
