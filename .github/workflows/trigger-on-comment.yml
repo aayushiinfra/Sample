@@ -94,3 +94,24 @@ jobs:
             ${{job.status}}
             ${{ steps.comment.outputs.result}}
           edit-mode: replace
+      - name: Changes for git
+        run: |
+          touch abc.txt
+          # git config --global user.email "something@abc.com"
+          # git config --global user.name "github-actions[bot]"
+          # git checkout develop
+          # git add .
+          # git diff-index --quiet HEAD || git commit -m "Testing"
+          # git status
+        shell: bash
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.WELL_WELL }}
+          commit-message: Update report
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+          branch: example-patches
+          delete-branch: false
+          title: '[Example] Update report'
+          draft: true
