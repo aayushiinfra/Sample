@@ -94,8 +94,17 @@ jobs:
             ${{job.status}}
             ${{ steps.comment.outputs.result}}
           edit-mode: replace
+      - name: Clone other repo
+        uses: actions/checkout@v4
+        with:
+          repository: aayushiinfra/DevOps
+          ref: main
+          path: otherrepo/
+          token: ${{ secrets.WELL_WELL }}
+
       - name: Changes for git
         run: |
+          git branch
           touch abc.txt
           # git config --global user.email "something@abc.com"
           # git config --global user.name "github-actions[bot]"
@@ -104,6 +113,7 @@ jobs:
           # git diff-index --quiet HEAD || git commit -m "Testing"
           # git status
         shell: bash
+        working-directory: otherrepo/
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
