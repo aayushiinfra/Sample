@@ -106,7 +106,7 @@ jobs:
         run: |
           git checkout -b example-patches
           git push -u origin example-patches
-          touch abc.txt
+          touch rfd.txt
           git config --global user.email "something@abc.com"
           git config --global user.name "github-actions[bot]"
           # git checkout develop
