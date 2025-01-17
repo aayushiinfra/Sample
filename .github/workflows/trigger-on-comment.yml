@@ -104,7 +104,7 @@ jobs:
 
       - name: Changes for git
         run: |
-          git branch
+          git checkout -b example-patches
           touch abc.txt
           # git config --global user.email "something@abc.com"
           # git config --global user.name "github-actions[bot]"
