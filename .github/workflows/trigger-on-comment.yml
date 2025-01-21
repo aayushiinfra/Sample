@@ -107,6 +107,7 @@ jobs:
           touch rfd.txt
           git config --global user.email "something@abc.com"
           git config --global user.name "github-actions[bot]"
+          echo "Something" > README.md
           # git checkout develop
           git add .
           git diff-index --quiet HEAD || git commit -m "Testing"
@@ -120,7 +121,7 @@ jobs:
           path: otherrepo/
           commit-message: Update report
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+          author: "CI@aayushi_team"
           base: main
           branch: example-patches-4
           delete-branch: false
