@@ -121,7 +121,7 @@ jobs:
           path: otherrepo/
           commit-message: Update report
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          author: "CI@aayushi_team"
+          author:  github-actions[bot] <CI@aayushi_team.github.com>
           base: main
           branch: example-patches-4
           delete-branch: false
