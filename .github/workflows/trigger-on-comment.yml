@@ -100,7 +100,7 @@ jobs:
           repository: aayushiinfra/DevOps
           ref: main
           path: otherrepo/
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.WELL_WELL }}
 
       - name: Changes for git
         run: |
