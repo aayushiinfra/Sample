@@ -100,7 +100,7 @@ jobs:
           repository: aayushiinfra/DevOps
           ref: main
           path: otherrepo/
-          token: ${{ secrets.WELL_WELL }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Changes for git
         run: |
@@ -116,13 +116,13 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.WELL_WELL }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           path: otherrepo/
           commit-message: Update report
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
           base: main
-          branch: example-patches-3
+          branch: example-patches-4
           delete-branch: false
           title: '[Example] Update report'
           draft: false
