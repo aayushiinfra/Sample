@@ -107,7 +107,7 @@ jobs:
           touch rfd.txt
           git config --global user.email "something@abc.com"
           git config --global user.name "github-actions[bot]"
-          echo "Something" > README.md
+          echo "Something other" >> README.md
           # git checkout develop
           git add .
           git diff-index --quiet HEAD || git commit -m "Testing"
